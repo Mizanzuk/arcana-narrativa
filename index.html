@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11100e">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://hgnshybkpcpypakcucbv.supabase.co; img-src 'self' data: https://hgnshybkpcpypakcucbv.supabase.co; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'">
+  <meta name="description" content="Arcana Narrativa – Tarô como ferramenta criativa para imaginar histórias.">
+  <title>Arcana Narrativa · Tarô e escrita criativa</title>
+  <link rel="preload" as="image" href="assets/hero.webp">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script defer src="tree-explorer.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="wordmark" href="#" aria-label="Arcana Narrativa, início"><span class="mark">✳</span> ARCANA <i>NARRATIVA</i></a>
+    <div class="top-actions"><span id="user-email" class="user-email" hidden></span><button id="logout" class="quiet-link" hidden>Sair</button><button id="open-toc" class="quiet-link" hidden>Mapa do curso <span aria-hidden="true">↗</span></button></div>
+  </header>
+  <main id="main">
+    <section id="welcome" class="welcome screen">
+      <div class="welcome-image" aria-hidden="true"></div>
+      <div class="welcome-content">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> OFICINA DE TARÔ E ESCRITA CRIATIVA</p>
+        <h1>Uma carta.<br>Um mundo <em>possível.</em></h1>
+        <p class="intro">O tarô como repertório de imagens, personagens e estruturas narrativas.</p>
+        <div class="entry-choice">
+          <button class="button button-primary" data-view="login">Já tenho login <span>↗</span></button>
+          <button class="button button-secondary" data-view="request">Ainda não tenho login <span>＋</span></button>
+        </div>
+        <p class="small-note">Esta sala é para quem se inscreveu na oficina.<br>O baralho não prevê a história. Ele ajuda a inventá-la.</p>
+      </div>
+      <div class="welcome-index" aria-hidden="true"><span>IMAGEM</span><i>→</i><span>ASSOCIAÇÃO</span><i>→</i><span>ESCOLHA</span></div>
+    </section>
+    <section id="auth" class="auth screen" hidden>
+      <div class="auth-art" aria-hidden="true"><img src="assets/visconti-world.webp" alt=""></div>
+      <div class="auth-content">
+        <button class="back-link" data-view="welcome">← Voltar</button>
+        <p class="eyebrow" id="auth-kicker">ACESSO À OFICINA</p>
+        <h1 id="auth-title">Que bom ter você por aqui.</h1>
+        <p id="auth-desc" class="auth-desc">Entre com o e-mail usado na inscrição.</p>
+        <form id="auth-form" novalidate>
+          <label id="email-label" for="auth-email">E-mail da inscrição</label>
+          <input id="auth-email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="voce@email.com">
+          <label id="password-label" for="auth-password" hidden>Senha</label>
+          <input id="auth-password" name="password" type="password" autocomplete="current-password" hidden placeholder="Sua senha">
+          <label id="new-password-label" for="new-password" hidden>Crie uma senha</label>
+          <input id="new-password" name="new-password" type="password" autocomplete="new-password" minlength="10" hidden placeholder="Pelo menos 10 caracteres">
+          <button id="auth-submit" class="button button-primary" type="submit">Entrar <span>↗</span></button>
+          <p id="auth-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <p class="auth-foot">Usaremos o e-mail apenas para confirmar sua inscrição e liberar o acesso.</p>
+      </div>
+    </section>
+    <section id="choose-mode" class="mode screen" hidden>
+      <p class="eyebrow">ARCANA NARRATIVA <span id="member-name"></span></p>
+      <h1>Por onde começamos?</h1>
+      <p class="mode-intro">Duas entradas. O mesmo baralho.</p>
+      <div class="mode-cards">
+        <button class="mode-card theory-card" data-module="theory"><span class="mode-number">01 / 02</span><strong>Teoria</strong><span class="mode-description">História, cartas e as correspondências que formam o tarô moderno.</span><span class="mode-arrow">Abrir percurso <b>↗</b></span><span class="card-ornament" aria-hidden="true">☉</span></button>
+        <button class="mode-card practice-card" data-module="practice"><span class="mode-number">02 / 02</span><strong>Exercícios</strong><span class="mode-description">Tiragens para construir cenas, personagens e escolhas irreversíveis.</span><span class="mode-arrow">Abrir laboratório <b>↗</b></span><span class="card-ornament" aria-hidden="true">✳</span></button>
+      </div>
+      <p class="mode-note">Explore no seu ritmo. Abra as palavras marcadas para ver ideias, contexto e fontes.</p>
+    </section>
+    <section id="lesson" class="lesson screen" hidden>
+      <nav class="lesson-rail" aria-label="Navegação da aula">
+        <button id="lesson-back" class="icon-button" aria-label="Voltar à escolha">←</button>
+        <span id="lesson-module" class="rail-label">TEORIA</span>
+        <div id="chapter-dots" class="chapter-dots" aria-label="Progresso"></div>
+        <button id="lesson-map" class="rail-map">Índice <span>☰</span></button>
+      </nav>
+      <article id="slide" class="slide" aria-live="polite"></article>
+      <div class="slide-nav">
+        <button id="prev-slide" class="slide-step"><span aria-hidden="true">←</span> Anterior</button>
+        <div class="slide-count"><span id="slide-current">01</span><i>/</i><span id="slide-total">35</span></div>
+        <button id="next-slide" class="slide-step">Próxima <span aria-hidden="true">→</span></button>
+      </div>
+      <div id="progress-line" class="progress-line"><span></span></div>
+    </section>
+    <section id="practice" class="practice screen" hidden>
+      <nav class="lesson-rail" aria-label="Navegação dos exercícios">
+        <button id="practice-back" class="icon-button" aria-label="Voltar à escolha">←</button>
+        <span class="rail-label">LABORATÓRIO</span>
+        <div class="practice-nav" id="practice-nav"></div>
+        <button id="practice-index" class="rail-map">Índice <span>☰</span></button>
+      </nav>
+      <article id="exercise" class="exercise"></article>
+    </section>
+  </main>
+  <aside id="knowledge" class="knowledge" aria-hidden="true" aria-labelledby="knowledge-title">
+    <div class="knowledge-shade" data-close-knowledge></div>
+    <section class="knowledge-panel" role="dialog" aria-modal="true" aria-labelledby="knowledge-title" tabindex="-1">
+      <div class="panel-head"><span class="eyebrow">CADERNO DE CAMPO</span><button class="icon-button" data-close-knowledge aria-label="Fechar painel">×</button></div>
+      <p id="knowledge-category" class="knowledge-category"></p>
+      <h2 id="knowledge-title">Sobre esta ideia</h2>
+      <div id="knowledge-body" class="knowledge-body"></div>
+      <div id="knowledge-cards" class="knowledge-cards"></div>
+      <div id="knowledge-links" class="knowledge-links"></div>
+      <div class="panel-foot"><span>ARCANA NARRATIVA</span><span>FONTES & CONTEXTO</span></div>
+    </section>
+  </aside>
+  <dialog id="toc-dialog" class="toc-dialog">
+    <div class="dialog-head"><p class="eyebrow">MAPA DE NAVEGAÇÃO</p><button id="close-toc" class="icon-button" aria-label="Fechar índice">×</button></div>
+    <h2 id="toc-title">Teoria</h2>
+    <div id="toc-list" class="toc-list"></div>
+  </dialog>
+  <noscript>Ative o JavaScript para abrir a apresentação interativa.</noscript>
+</body>
+</html>
