@@ -157,5 +157,5 @@ function showInfo(kind,i){
  let cards=[majorCode(p[3])];if(kind==='astro')for(const suit of suitCodes){for(let rank=2;rank<=10;rank++){const decan=decans[suit][rank-2];if(decan.includes(astro))cards.push(numberedCode(suit,rank))}}
  present(title,body,[sources.crowleyPaths,sources.crowleyTree,sources.crowleyGematria],category,cards)
 }
-window.ArcanaTree={preview,setup,isOpen:()=>opened};
+window.ArcanaTree={preview,setup,configure:(opts)=>{config=opts},showInfo,showCard,related,isOpen:()=>opened};
 })();
