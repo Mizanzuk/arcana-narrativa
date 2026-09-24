@@ -46,6 +46,7 @@
 .suit-comparison img{height:320px;max-height:320px}
 @media(max-width:650px){.slide:has(.card-comparison),.slide:has(.suit-comparison){gap:18px}.slide:has(.card-comparison) h1,.slide:has(.suit-comparison) h1{font-size:clamp(44px,11vw,62px)}.slide:has(.card-comparison) .slide-visual{height:250px}.card-comparison{gap:6px}.card-comparison img{height:190px;max-height:190px}.slide:has(.suit-comparison) .slide-visual{height:420px}.suit-comparison{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 15px}.suit-comparison img{height:170px;max-height:170px}}
 .knowledge-links .book-source{display:block;color:#55483a;font-size:12px;line-height:1.55}
+.auth-switch{align-self:flex-start;border:0;background:transparent;padding:4px 0 8px;color:var(--gold);font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}.auth-switch:hover{color:var(--paper)}
 .number-map{list-style:none;margin:0;padding:0;width:min(100%,410px);display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;counter-reset:none}
 .number-map li{display:flex;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid #ffffff1b}
 .number-map li span{color:var(--gold);font:12px/1 var(--mono);letter-spacing:.06em}
