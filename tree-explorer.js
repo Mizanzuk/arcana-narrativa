@@ -116,7 +116,7 @@ const minorNotes={
 };
 let cardModal,cardFocus;
 const majorCode=i=>`T-${String(i).padStart(2,'0')}`;
-const numberedCode=(s,n)=>`${s}-${n===1?'0A':String(n).padStart(2,'0')}`;
+const numberedCode=(s,n)=>`${s}-${n===1?'10':n===10?'0A':String(n).padStart(2,'0')}`;
 function suitCards(s){return [1,2,3,4,5,6,7,8,9,10].map(n=>numberedCode(s,n)).concat(['KN','QU','PN','PS'].map(r=>`${s}-${r}`))}
 function related(codes){
  const target=$('#knowledge-cards');if(!target)return;
@@ -129,7 +129,7 @@ function cardText(code){
   const n=+r,p=config.paths.find(path=>path[3]===n),letter=p?.[0]||config.majors[n][0],astro=config.majors[n][1];
   return {association:`Arcano Maior · ${letter} · ${astro}`,body:`<p>${majorNotes[n]}</p><p>No sistema apresentado por Crowley, esta carta ocupa um caminho da Árvore e articula a letra <b>${letter}</b> à correspondência <b>${astro}</b>. Observe como Frieda Harris transforma essas relações em cor, gesto e composição.</p><p><b>Para escrever:</b> ${esc(config.majors[n][2])}. Que acontecimento concreto tornaria essa força visível?</p>`,source:'Aleister Crowley, O Livro de Thoth · seção dos Arcanos Maiores'}
  }
- const rank=r==='0A'?1:+r,element=suitElements[s],seph=rank<=10?config.sefirot[rank-1]?.[0]:null,decan=rank>=2&&rank<=10?decans[s][rank-2]:null;
+ const rank=r==='10'?1:r==='0A'?10:+r,element=suitElements[s],seph=rank<=10?config.sefirot[rank-1]?.[0]:null,decan=rank>=2&&rank<=10?decans[s][rank-2]:null;
  let association=`${suitNames[s]} · ${element}`;
  if(seph)association+=` · ${rank} · ${seph}`;
  if(decan)association+=` · ${decan}`;
@@ -139,7 +139,7 @@ function cardText(code){
  return {association,body,source:'Aleister Crowley, O Livro de Thoth · seção das cartas menores e figuras da corte'}
 }
 function ensureCardModal(){if(cardModal)return;cardModal=document.createElement('section');cardModal.id='tree-card-modal';cardModal.className='tree-card-modal';cardModal.hidden=true;cardModal.setAttribute('role','dialog');cardModal.setAttribute('aria-modal','true');cardModal.setAttribute('aria-labelledby','tree-card-title');cardModal.innerHTML='<div class="tree-card-shade" data-close-card></div><article class="tree-card-dialog"><button class="tree-card-close" type="button" data-close-card aria-label="Fechar carta">×</button><div class="tree-card-image-wrap" id="tree-card-image"></div><div class="tree-card-copy"><p class="tree-card-eyebrow">TAROT DE THOTH · FRIEDA HARRIS</p><h2 id="tree-card-title"></h2><p id="tree-card-association" class="tree-card-association"></p><div id="tree-card-body" class="tree-card-body"></div><p id="tree-card-source" class="tree-card-source"></p></div></article>';document.body.append(cardModal);$$('[data-close-card]',cardModal).forEach(b=>b.onclick=hideCard);cardModal.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();hideCard()}if(e.key==='Tab'){const a=$$('[data-close-card]',cardModal).filter(x=>x!==$('.tree-card-shade',cardModal));if(a.length===1){e.preventDefault();a[0].focus()}}})}
-function showCard(code,trigger){ensureCardModal();const info=config.cardInfo(code),src=config.mediaCard(code),detail=cardText(code);cardFocus=trigger;$('#tree-card-title',cardModal).textContent=info.name;$('#tree-card-association',cardModal).textContent=detail.association;$('#tree-card-body',cardModal).innerHTML=detail.body;$('#tree-card-source',cardModal).textContent=detail.source;$('#tree-card-image',cardModal).innerHTML=src?`<img src="${esc(src)}" alt="${esc(info.name)} do Tarot de Thoth">`:'<div class="tree-card-unavailable">Imagem indisponível nesta sessão.</div>';cardModal.hidden=false;$('#knowledge').inert=true;$('.tree-card-close',cardModal).focus()}
+function showCard(code,trigger){ensureCardModal();const info=config.cardInfo(code),src=config.mediaCard(code),detail=cardText(code),entry=config.cardSources?.(code),evidence=[entry,entry?.crowley,entry?.duquette].filter(Boolean);cardFocus=trigger;$('#tree-card-title',cardModal).textContent=info.name;$('#tree-card-association',cardModal).textContent=detail.association;$('#tree-card-body',cardModal).innerHTML=detail.body+(evidence.length?`<div class="tree-card-evidence"><h3>Trechos das fontes</h3>${evidence.map(item=>`<details><summary>${esc(item.book)} · PDF p. ${item.page}${item.pageEnd?`–${item.pageEnd}`:''}</summary><blockquote lang="${esc(item.language||'en')}">${esc(item.excerpt)}</blockquote>${item.translation?`<p class="tree-card-translation">Tradução: ${esc(item.translation)}</p>`:''}${item.note?`<p class="tree-card-note">${esc(item.note)}</p>`:''}</details>`).join('')}</div>`:'');$('#tree-card-source',cardModal).textContent=evidence.length?'Trechos curtos das edições consultadas. A proposta de escrita acima é uma interpretação didática.':detail.source;$('#tree-card-image',cardModal).innerHTML=src?`<img src="${esc(src)}" alt="${esc(info.name)} do Tarot de Thoth">`:'<div class="tree-card-unavailable">Imagem indisponível nesta sessão.</div>';cardModal.hidden=false;$('#knowledge').inert=true;$('.tree-card-close',cardModal).focus()}
 function hideCard(){if(!cardModal||cardModal.hidden)return;cardModal.hidden=true;$('#knowledge').inert=false;cardFocus?.focus?.()}
 function showInfo(kind,i){
  const {paths,sefirot,majorNames,majors,openKnowledge,sources}=config;
