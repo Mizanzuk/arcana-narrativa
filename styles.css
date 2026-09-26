@@ -251,3 +251,13 @@
   .board-tools{margin-top:0}
   .spread-empty{max-width:90%;width:auto;text-align:center}
 }
+@media (max-width:650px){
+  .slide h1{max-width:100%;overflow-wrap:break-word;hyphens:auto}
+  .slide:has(.suit-comparison) .slide-visual,
+  .slide:has(.gematria-tool) .slide-visual,
+  .slide:has(.sandbox) .slide-visual{height:auto;min-height:0;display:block}
+  .slide:has(.suit-comparison) .suit-comparison{height:auto}
+  .slide:has(.sandbox) h1{font-size:clamp(27px,7vw,38px);overflow-wrap:normal;hyphens:none}
+  .slide:has(.sandbox) .sandbox{height:auto}
+  .slide:has(.sandbox) .sandbox-result{overflow:visible}
+}
