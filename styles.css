@@ -272,3 +272,16 @@
   .course-timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
   .paths-learning{height:auto;min-height:320px;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
 }
+
+/* Workshop fixes: crossing card, complete position guidance, and glossary. */
+.practice-card-crossing{width:300px;min-height:0;height:222px;z-index:3;padding-top:0;gap:5px}
+.practice-card-crossing img{transform:rotate(90deg);margin:-30px 0 -22px}
+.practice-card-crossing:hover,.practice-card-crossing:focus-visible{z-index:4}
+.practice-card-current .practice-card-position{position:absolute;top:-40px;left:0;width:100%}
+.practice-card-current strong{position:absolute;bottom:-34px;left:0;width:100%}
+.reading-positions button .position-summary{display:block;margin-top:9px;color:var(--muted);font:15px/1.5 var(--serif);text-transform:none;letter-spacing:normal}
+.reading-positions button{text-align:left;white-space:normal;overflow:visible}
+.practice-reading{height:auto;max-height:none;overflow:visible}
+#practice-save-status{color:var(--gold);font-size:12px;line-height:1.5}
+.gematria-tool select{width:100%;min-height:44px;padding:9px;background:var(--panel);color:var(--paper);border:1px solid var(--line);margin:8px 0 16px}
+.gematria-tool>p{font:14px/1.5 var(--sans);color:var(--muted)}
